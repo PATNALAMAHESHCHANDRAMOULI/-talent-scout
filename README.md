@@ -126,7 +126,7 @@ talent_agent/
 
 ```bash
 # Clone the repository
-git clone https://github.com/PATNALAMAHESHCHANDRAMOULI/talent-scout.git
+git clone https://github.com/<your-username>/talent-scout.git
 cd talent-scout/talent_agent
 
 # Install dependencies
