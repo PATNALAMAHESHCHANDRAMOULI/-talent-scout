@@ -723,6 +723,533 @@
         padding: 0 16px;
       }
     }
+
+    /* ── profile panel ── */
+    .panel-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(26, 25, 22, 0.35);
+      z-index: 99;
+      opacity: 0;
+      transition: opacity 200ms;
+      pointer-events: none;
+    }
+
+    .panel-backdrop.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    #profile-panel {
+      position: fixed;
+      top: 0;
+      right: 0;
+      width: 480px;
+      height: 100vh;
+      background: var(--surface);
+      border-left: 1px solid var(--border);
+      box-shadow: -4px 0 24px rgba(0, 0, 0, 0.08);
+      z-index: 100;
+      transform: translateX(100%);
+      transition: transform 320ms cubic-bezier(0.4, 0, 0.2, 1);
+      display: flex;
+      flex-direction: column;
+    }
+
+    #profile-panel.open {
+      transform: translateX(0);
+    }
+
+    .panel-close {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      color: var(--text-secondary);
+      transition: border-color 150ms;
+      z-index: 2;
+    }
+
+    .panel-close:hover {
+      border-color: var(--border-strong);
+    }
+
+    .panel-scroll {
+      flex: 1;
+      overflow-y: auto;
+      padding: 24px;
+    }
+
+    .pp-header {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .pp-avatar {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      font-weight: 700;
+      color: #FFFFFF;
+      flex-shrink: 0;
+    }
+
+    .pp-name {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+
+    .pp-title {
+      font-size: 13px;
+      color: var(--text-secondary);
+      margin-top: 2px;
+    }
+
+    .pp-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 6px;
+      font-size: 12px;
+      color: var(--text-secondary);
+      align-items: center;
+    }
+
+    .pp-meta span {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .pp-meta .pp-salary {
+      font-family: var(--font-mono);
+    }
+
+    /* ── donut ── */
+    .pp-score-row {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      margin-top: 20px;
+    }
+
+    .score-donut {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      flex-shrink: 0;
+    }
+
+    .score-donut::after {
+      content: '';
+      position: absolute;
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      background: var(--surface);
+    }
+
+    .score-donut-number {
+      position: relative;
+      z-index: 1;
+      font-family: var(--font-mono);
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+
+    .pp-stats {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      flex: 1;
+    }
+
+    .pp-stat {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 6px 10px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 500;
+    }
+
+    .pp-stat span:last-child {
+      font-family: var(--font-mono);
+      font-weight: 700;
+    }
+
+    .pp-stat-match {
+      background: var(--match-bg);
+      color: var(--match);
+    }
+
+    .pp-stat-interest {
+      background: var(--interest-bg);
+      color: var(--interest);
+    }
+
+    .pp-stat-level-high {
+      background: var(--high-bg);
+      color: var(--high);
+    }
+
+    .pp-stat-level-medium {
+      background: var(--medium-bg);
+      color: var(--medium);
+    }
+
+    .pp-stat-level-low {
+      background: var(--low-bg);
+      color: var(--low);
+    }
+
+    .pp-verdict {
+      margin-top: 14px;
+      padding: 10px 14px;
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 600;
+      text-align: center;
+    }
+
+    .verdict-strong {
+      background: var(--high-bg);
+      color: #065F46;
+    }
+
+    .verdict-potential {
+      background: var(--medium-bg);
+      color: #92400E;
+    }
+
+    .verdict-weak {
+      background: var(--low-bg);
+      color: #991B1B;
+    }
+
+    /* ── skill dots ── */
+    .pp-section-label {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-tertiary);
+      margin: 20px 0 12px;
+    }
+
+    .pp-skill-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .pp-skill-col-header {
+      font-size: 11px;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    .pp-skill-col-header.sk-green {
+      color: #065F46;
+    }
+
+    .pp-skill-col-header.sk-red {
+      color: #991B1B;
+    }
+
+    .pp-skill-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 6px;
+    }
+
+    .pp-skill-name {
+      font-size: 11px;
+      font-weight: 500;
+      font-family: var(--font-mono);
+      color: var(--text-primary);
+    }
+
+    .pp-dots {
+      display: flex;
+      gap: 3px;
+    }
+
+    .pp-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+    }
+
+    .pp-dot-filled-green {
+      background: var(--high-bg);
+      border: 1px solid var(--high);
+    }
+
+    .pp-dot-empty {
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+    }
+
+    .pp-dot-filled-red {
+      background: var(--low-bg);
+      border: 1px solid var(--low);
+    }
+
+    .pp-skill-summary {
+      font-size: 12px;
+      color: var(--text-secondary);
+      margin-top: 8px;
+      line-height: 1.6;
+    }
+
+    .pp-outreach-box {
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 12px 14px;
+      border-left: 3px solid var(--accent-light);
+      font-size: 12.5px;
+      line-height: 1.65;
+      color: var(--text-secondary);
+    }
+
+    .pp-reply-bubble {
+      background: #F0F0FF;
+      border: 1px solid #DDD9FF;
+      border-radius: 0 10px 10px 10px;
+      padding: 10px 14px;
+      font-size: 12.5px;
+      line-height: 1.6;
+      color: var(--text-secondary);
+      margin-top: 8px;
+    }
+
+    .pp-reply-label {
+      font-size: 9px;
+      font-weight: 600;
+      color: var(--text-tertiary);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-top: 12px;
+      margin-bottom: 4px;
+    }
+
+    .pp-interest-badge {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 600;
+      padding: 4px 10px;
+      border-radius: 4px;
+      margin-top: 12px;
+    }
+
+    /* ── chat ── */
+    .chat-window {
+      height: 240px;
+      overflow-y: auto;
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .chat-msg {
+      max-width: 75%;
+    }
+
+    .chat-msg-right {
+      align-self: flex-end;
+    }
+
+    .chat-msg-left {
+      align-self: flex-start;
+    }
+
+    .chat-bubble-recruiter {
+      background: var(--accent);
+      color: #FFFFFF;
+      border-radius: 16px 16px 4px 16px;
+      padding: 8px 13px;
+      font-size: 12.5px;
+      line-height: 1.5;
+    }
+
+    .chat-bubble-candidate {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px 16px 16px 4px;
+      padding: 8px 13px;
+      font-size: 12.5px;
+      line-height: 1.5;
+      color: var(--text-primary);
+    }
+
+    .chat-sender {
+      font-size: 9px;
+      color: var(--text-tertiary);
+      margin-bottom: 2px;
+    }
+
+    .chat-time {
+      font-size: 9px;
+      color: var(--text-tertiary);
+      margin-top: 2px;
+    }
+
+    .chat-sender-right {
+      text-align: right;
+    }
+
+    .chat-input-bar {
+      padding: 12px 24px 24px;
+      border-top: 1px solid var(--border);
+      background: var(--surface);
+    }
+
+    .chat-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 8px;
+    }
+
+    .chat-chip {
+      font-size: 11px;
+      font-weight: 500;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      border-radius: 20px;
+      padding: 4px 10px;
+      cursor: pointer;
+      color: var(--text-secondary);
+      transition: border-color 150ms;
+    }
+
+    .chat-chip:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    .chat-input-row {
+      display: flex;
+      gap: 8px;
+    }
+
+    .chat-textarea {
+      flex: 1;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 8px 12px;
+      font-family: var(--font-sans);
+      font-size: 13px;
+      color: var(--text-primary);
+      resize: none;
+      background: var(--surface-2);
+      transition: border-color 150ms, box-shadow 150ms;
+    }
+
+    .chat-textarea:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(91, 79, 232, 0.1);
+    }
+
+    .chat-textarea::placeholder {
+      color: var(--text-tertiary);
+    }
+
+    .chat-send-btn {
+      width: 40px;
+      height: 40px;
+      border-radius: 8px;
+      background: var(--accent);
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #FFFFFF;
+      font-size: 18px;
+      flex-shrink: 0;
+      transition: background 150ms;
+    }
+
+    .chat-send-btn:hover {
+      background: #4C42D1;
+    }
+
+    .typing-dots {
+      display: flex;
+      gap: 4px;
+      padding: 8px 13px;
+    }
+
+    .typing-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--text-tertiary);
+      animation: typingPulse 1.2s infinite;
+    }
+
+    .typing-dot:nth-child(2) {
+      animation-delay: 200ms;
+    }
+
+    .typing-dot:nth-child(3) {
+      animation-delay: 400ms;
+    }
+
+    @keyframes typingPulse {
+
+      0%,
+      60%,
+      100% {
+        opacity: 0.3;
+      }
+
+      30% {
+        opacity: 1;
+      }
+    }
+
+    .card {
+      cursor: pointer;
+    }
+
+    @media (max-width: 600px) {
+      #profile-panel {
+        width: 100vw;
+      }
+    }
   </style>
 </head>
 
@@ -766,8 +1293,32 @@ Tip: Include required skills, years of experience, and location preference for b
     </div>
   </div>
 
+  <div class="panel-backdrop" id="panel-backdrop" onclick="closeProfilePanel()"></div>
+  <div id="profile-panel">
+    <button class="panel-close" onclick="closeProfilePanel()">✕</button>
+    <div class="panel-scroll"></div>
+    <div class="chat-input-bar">
+      <div class="chat-chips">
+        <span class="chat-chip" onclick="fillChatChip('Are you open to this role?')">Are you open to this role?</span>
+        <span class="chat-chip" onclick="fillChatChip('What\'s your notice period?')">What's your notice period?</span>
+        <span class="chat-chip" onclick="fillChatChip('Can we schedule a call this week?')">Can we schedule a call this week?</span>
+      </div>
+      <div class="chat-input-row">
+        <textarea class="chat-textarea" id="chatInput" rows="1" placeholder="Message the candidate..." onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendChatMessage();}"></textarea>
+        <button class="chat-send-btn" onclick="sendChatMessage()">→</button>
+      </div>
+    </div>
+  </div>
+
   <script>
     const AVATAR_COLORS = ['#5B4FE8', '#0F766E', '#D97706', '#DC2626', '#059669', '#7C3AED'];
+    let allCandidates = [];
+    let fullProfiles = {};
+
+    // fetch full candidate profiles for panel details (location, salary)
+    fetch('/candidates').then(r => r.json()).then(data => {
+      data.candidates.forEach(c => { fullProfiles[c.name] = c; });
+    });
 
     function getAvatarColor(name) {
       return AVATAR_COLORS[name.charCodeAt(0) % 6];
@@ -898,6 +1449,9 @@ Tip: Include required skills, years of experience, and location preference for b
           </div>`;
       }).join('');
 
+      // store for panel access
+      allCandidates = candidates;
+
       requestAnimationFrame(() => {
         const cards = el.querySelectorAll('.card');
         cards.forEach((card, i) => {
@@ -910,9 +1464,201 @@ Tip: Include required skills, years of experience, and location preference for b
               });
             }, 50);
           }, i * 80);
+
+          // open profile panel on card click (skip collapsible clicks)
+          card.addEventListener('click', (e) => {
+            if (e.target.closest('details') || e.target.closest('summary')) return;
+            openProfilePanel(allCandidates[i]);
+          });
         });
       });
     }
+
+    // ── profile panel ──
+    function openProfilePanel(candidate) {
+      const panel = document.getElementById('profile-panel');
+      const backdrop = document.getElementById('panel-backdrop');
+      const profile = fullProfiles[candidate.candidate_name] || {};
+      const avatarColor = getAvatarColor(candidate.candidate_name);
+      const initials = getInitials(candidate.candidate_name);
+      const firstName = candidate.candidate_name.split(' ')[0];
+      const availClass = candidate.availability === 'immediate' ? 'avail-immediate' : candidate.availability === '2 weeks' ? 'avail-2weeks' : 'avail-1month';
+      const salary = profile.salary_expectation_usd || 0;
+      const location = profile.location || 'Not specified';
+      const yearsExp = profile.years_experience || 0;
+      const levelClass = 'pp-stat-level-' + candidate.interest_level;
+
+      let verdictClass, verdictText;
+      if (candidate.final_score >= 75) {
+        verdictClass = 'verdict-strong';
+        verdictText = 'Strong Candidate \u2014 Recommended for Interview';
+      } else if (candidate.final_score >= 50) {
+        verdictClass = 'verdict-potential';
+        verdictText = 'Potential Fit \u2014 Worth a Conversation';
+      } else {
+        verdictClass = 'verdict-weak';
+        verdictText = 'Weak Match \u2014 Consider Other Candidates';
+      }
+
+      panel.querySelector('.panel-scroll').innerHTML = `
+        <div class="pp-header">
+          <div class="pp-avatar" style="background:${avatarColor}">${initials}</div>
+          <div>
+            <div class="pp-name">${candidate.candidate_name}</div>
+            <div class="pp-title">${candidate.title}</div>
+            <div class="pp-meta">
+              <span class="avail-tag ${availClass}">${candidate.availability}</span>
+              <span>\u25CE ${location}</span>
+              <span class="pp-salary">$${salary.toLocaleString()}</span>
+            </div>
+          </div>
+        </div>
+        <div class="pp-score-row">
+          <div class="score-donut"><span class="score-donut-number">${candidate.final_score}</span></div>
+          <div class="pp-stats">
+            <div class="pp-stat pp-stat-match"><span>Match Score</span><span>${candidate.match_score}</span></div>
+            <div class="pp-stat pp-stat-interest"><span>Interest Score</span><span>${candidate.interest_score}</span></div>
+            <div class="pp-stat ${levelClass}"><span>Interest Level</span><span>${candidate.interest_level.toUpperCase()}</span></div>
+          </div>
+        </div>
+        <div class="pp-verdict ${verdictClass}">${verdictText}</div>
+        <div class="pp-section-label">Skill Assessment</div>
+        ${buildSkillGrid(candidate.matched_skills, candidate.missed_skills)}
+        <div class="pp-skill-summary">
+          Matched ${candidate.matched_skills.length} of ${candidate.matched_skills.length + candidate.missed_skills.length} required skills<br>
+          ${yearsExp} years experience \u00b7 ${candidate.availability} availability
+        </div>
+        <div class="pp-section-label">Recruiter Outreach</div>
+        <div class="pp-outreach-box">${candidate.outreach_message}</div>
+        ${candidate.candidate_replies.map((r, i) => `<div class="pp-reply-label">Reply ${i + 1}</div><div class="pp-reply-bubble">"${r}"</div>`).join('')}
+        <div class="pp-interest-badge ${levelClass}">Classified as: ${candidate.interest_level.toUpperCase()} INTEREST</div>
+        <div class="pp-section-label">Chat with Candidate</div>
+        <div class="chat-window" id="chatWindow"></div>
+      `;
+
+      // set donut conic-gradient — only allowed inline style
+      const donut = panel.querySelector('.score-donut');
+      donut.style.background = `conic-gradient(var(--accent) 0% ${candidate.final_score}%, var(--surface-2) ${candidate.final_score}% 100%)`;
+
+      // pre-load chat with outreach + first reply
+      const chatWindow = document.getElementById('chatWindow');
+      appendChatBubble(chatWindow, candidate.outreach_message, 'recruiter', firstName);
+      appendChatBubble(chatWindow, candidate.candidate_replies[0], 'candidate', firstName);
+
+      // store candidate context for chat replies
+      panel.dataset.interestLevel = candidate.interest_level;
+      panel.dataset.availability = candidate.availability;
+      panel.dataset.salary = salary;
+      panel.dataset.firstName = firstName;
+
+      panel.classList.add('open');
+      backdrop.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeProfilePanel() {
+      document.getElementById('profile-panel').classList.remove('open');
+      document.getElementById('panel-backdrop').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    function buildSkillGrid(matched, missed) {
+      const makeDots = (filled, isGreen) => {
+        return Array.from({ length: 10 }, (_, i) =>
+          `<div class="pp-dot ${i < filled ? (isGreen ? 'pp-dot-filled-green' : 'pp-dot-filled-red') : 'pp-dot-empty'}"></div>`
+        ).join('');
+      };
+      const matchedRows = matched.map(s =>
+        `<div class="pp-skill-row"><span class="pp-skill-name">\u2713 ${s}</span><div class="pp-dots">${makeDots(7, true)}</div></div>`
+      ).join('');
+      const missedRows = missed.map(s =>
+        `<div class="pp-skill-row"><span class="pp-skill-name">\u2717 ${s}</span><div class="pp-dots">${makeDots(3, false)}</div></div>`
+      ).join('');
+      return `<div class="pp-skill-grid">
+        <div><div class="pp-skill-col-header sk-green">Matched Skills</div>${matchedRows}</div>
+        <div><div class="pp-skill-col-header sk-red">Missing Skills</div>${missedRows}</div>
+      </div>`;
+    }
+
+    // ── chat logic ──
+    function appendChatBubble(container, text, sender, firstName) {
+      const isRecruiter = sender === 'recruiter';
+      const bubble = document.createElement('div');
+      bubble.className = `chat-msg ${isRecruiter ? 'chat-msg-right' : 'chat-msg-left'}`;
+      bubble.innerHTML = `
+        <div class="chat-sender ${isRecruiter ? 'chat-sender-right' : ''}">${isRecruiter ? 'You \u00b7 Recruiter' : firstName + ' \u00b7 Candidate'}</div>
+        <div class="${isRecruiter ? 'chat-bubble-recruiter' : 'chat-bubble-candidate'}">${text}</div>
+        <div class="chat-time ${isRecruiter ? 'chat-sender-right' : ''}">just now</div>
+      `;
+      container.appendChild(bubble);
+      container.scrollTop = container.scrollHeight;
+    }
+
+    // replies are deterministic — same input gives same output, fine for a demo
+    function generateCandidateReply(message, interestLevel, availability, salary) {
+      const msg = message.toLowerCase();
+      const formatted = '$' + Number(salary).toLocaleString();
+
+      if (/notice|join|when/.test(msg)) {
+        if (interestLevel === 'high') return `I can join within ${availability}. Excited about this!`;
+        if (interestLevel === 'medium') return `My notice period is ${availability}. Would need to discuss.`;
+        return 'I have commitments at my current role for the foreseeable future.';
+      }
+      if (/salary|compensation|pay|ctc/.test(msg)) {
+        if (interestLevel === 'high') return `Expecting around ${formatted} annually, open to discussion.`;
+        if (interestLevel === 'medium') return `My expectation is ${formatted}. Is that in range?`;
+        return 'Compensation would need to be competitive for me to consider moving.';
+      }
+      if (/interview|call|schedule|meet/.test(msg)) {
+        if (interestLevel === 'high') return "Absolutely, I'm available this week! What time works for you?";
+        if (interestLevel === 'medium') return 'I could make time next week. What does the process look like?';
+        return "I'd need to know more before committing to an interview.";
+      }
+      if (/open|interested|role|opportunity/.test(msg)) {
+        if (interestLevel === 'high') return "Yes, sounds exciting! I'd love to learn more about the team.";
+        if (interestLevel === 'medium') return "I'm cautiously open. What makes this role different?";
+        return "I'm fairly settled in my current position, to be honest.";
+      }
+      if (interestLevel === 'high') return "That's a great question. I'm genuinely interested in what you're building.";
+      if (interestLevel === 'medium') return 'Hmm, can you share more context?';
+      return "I appreciate you reaching out, but I'm not actively looking right now.";
+    }
+
+    function sendChatMessage() {
+      const input = document.getElementById('chatInput');
+      const text = input.value.trim();
+      if (!text) return;
+
+      const panel = document.getElementById('profile-panel');
+      const chatWindow = document.getElementById('chatWindow');
+      const firstName = panel.dataset.firstName;
+
+      appendChatBubble(chatWindow, text, 'recruiter', firstName);
+      input.value = '';
+
+      // show typing indicator then reply after 1.2s
+      const typingEl = document.createElement('div');
+      typingEl.className = 'chat-msg chat-msg-left';
+      typingEl.innerHTML = '<div class="chat-bubble-candidate"><div class="typing-dots"><div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div></div></div>';
+      chatWindow.appendChild(typingEl);
+      chatWindow.scrollTop = chatWindow.scrollHeight;
+
+      setTimeout(() => {
+        typingEl.remove();
+        const reply = generateCandidateReply(text, panel.dataset.interestLevel, panel.dataset.availability, panel.dataset.salary);
+        appendChatBubble(chatWindow, reply, 'candidate', firstName);
+      }, 1200);
+    }
+
+    function fillChatChip(text) {
+      document.getElementById('chatInput').value = text;
+      document.getElementById('chatInput').focus();
+    }
+
+    // ESC key closes panel
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeProfilePanel();
+    });
   </script>
 </body>
 
